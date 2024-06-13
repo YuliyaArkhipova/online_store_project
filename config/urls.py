@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
-urlpatterns = [
+urlpatterns = ([
     path('admin/', admin.site.urls),
     path('', include('catalog.urls', namespace='catalog'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
