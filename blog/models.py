@@ -27,20 +27,17 @@ class Blog(models.Model):
         **NULLABLE
     )
     created_at = models.DateField(
-        auto_now_add=True,
-        **NULLABLE
+        auto_now_add=True
     )
     is_published = models.BooleanField(
         verbose_name="Публикация",
         help_text="Укажите статус публикации",
-        default=True,
-        **NULLABLE
+        default=True
     )
-    views_count = models.IntegerField(
+    views_count = models.PositiveIntegerField(
         verbose_name="Просмотры",
         help_text="Количество просмотров",
-        default=0,
-        **NULLABLE
+        default=0
     )
 
     class Meta:
