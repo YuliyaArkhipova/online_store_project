@@ -1,27 +1,30 @@
 from django.shortcuts import render
 from django.template.defaultfilters import slugify
 from django.urls import reverse_lazy, reverse
-
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-
 from blog.models import Blog
 
 
-class BlogCreateView(CreateView):
+class SetSlugMixin:
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.slug = slugify(obj.title)
+        obj.save()
+        return super().form_valid(form)
+
+class BlogCreateView(SetSlugMixin, CreateView):
     model = Blog
     fields = ('title', 'content', 'is_published',)
     success_url = reverse_lazy('blog:blog_list')
 
-    def form_valid(self, form):
-        if form.is_valid():
-            new_article = form.save()
-            new_article.slug = slugify(new_article.title)
-            new_article.save()
-        return super().form_valid(form)
-
 
 class BlogListView(ListView):
     model = Blog
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(is_published=True)
+        return queryset
 
 
 class BlogDetailView(DetailView):
@@ -34,13 +37,13 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(SetSlugMixin, UpdateView):
     model = Blog
     fields = ('title', 'content', 'is_published',)
     success_url = reverse_lazy('blog:blog_list')
 
     def get_success_url(self):
-        return reverse('blog:blog_detail', args=[self.kwargs.get('pk')])
+        return reverse('blog:blog_detail', args=(self.kwargs['pk'],))
 
 
 class BlogDeleteView(DeleteView):
