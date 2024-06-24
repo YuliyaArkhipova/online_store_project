@@ -12,6 +12,7 @@ class SetSlugMixin:
         obj.save()
         return super().form_valid(form)
 
+
 class BlogCreateView(SetSlugMixin, CreateView):
     model = Blog
     fields = ('title', 'content', 'is_published',)
