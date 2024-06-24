@@ -2,7 +2,9 @@
 {% load my_tags %}
 {% block content %}
 
-
+<div class="col-12 mb-5">
+    <a class="btn btn-outlite-primary" href="{%  url 'catalog:product_create' %}">Добавить продукт</a>
+</div>
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -18,6 +20,8 @@
                             <div class="btn-group">
                                 <a href="{% url 'catalog:product_detail' object.pk %}"
                                    class="btn btn-md btn-block btn-outline-secondary">Посмотреть</a>
+                                <a href="{% url 'catalog:product_update' object.pk %}"
+                                   class="btn btn-md btn-block btn-outline-secondary">Редактировать</a>
                             </div>
                         </div>
                     </div>
