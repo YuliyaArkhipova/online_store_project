@@ -2,9 +2,11 @@
 {% load my_tags %}
 {% block content %}
 
+{% if user.is_authenticated %}
 <div class="col-12 mb-5">
     <a class="btn btn-outlite-primary" href="{%  url 'catalog:product_create' %}">Добавить продукт</a>
 </div>
+{% endif %}
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">

@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -60,6 +62,12 @@ class Product(models.Model):
         verbose_name="Дата последнего изменения"
     )
 
+    authorized_user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.SET_NULL, **NULLABLE)
+
+    class Meta:
+        verbose_name = " Товар"
+        verbose_name_plural = "Товары"
+        ordering = ("name", "category")
     class Meta:
         verbose_name = " Товар"
         verbose_name_plural = "Товары"

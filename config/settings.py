@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'django_dump_load_utf8',
     'blog',
     'version',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -96,3 +97,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+AUTH_USER_MODEL = 'users.User'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'y.a.arkhipova@yandex.ru'
+EMAIL_HOST_PASSWORD = 'gaowmbciqvdhaesd'
+EMAIL_USE_TLS = True
+EMAIL_USE_TLS = True
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
