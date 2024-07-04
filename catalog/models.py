@@ -62,16 +62,25 @@ class Product(models.Model):
         verbose_name="Дата последнего изменения"
     )
 
-    authorized_user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.SET_NULL, **NULLABLE)
+    authorized_user = models.ForeignKey(
+        User,
+        verbose_name="Пользователь",
+        on_delete=models.SET_NULL,
+        **NULLABLE
+    )
+
+    is_published = models.BooleanField(
+        default=False,
+        verbose_name="Публикация"
+    )
 
     class Meta:
         verbose_name = " Товар"
         verbose_name_plural = "Товары"
         ordering = ("name", "category")
-    class Meta:
-        verbose_name = " Товар"
-        verbose_name_plural = "Товары"
-        ordering = ("name", "category")
+        permissions = [
+            ('cancellation_of_publication', 'Canceling the publication of the product'),
+        ]
 
     def __str__(self):
         return f'{self.name} {self.price} {self.category}'
