@@ -22,9 +22,13 @@
                             <div class="btn-group">
                                 <a href="{% url 'catalog:product_detail' object.pk %}"
                                    class="btn btn-md btn-block btn-outline-secondary">Посмотреть</a>
-                                <a href="{% url 'catalog:product_update' object.pk %}"
-                                   class="btn btn-md btn-block btn-outline-secondary">Редактировать</a>
                             </div>
+                            {% if perms.catalog.cancellation_of_publication and perms.catalog.change_product and perms.catalog.view_product or user == object.authorized_user %}
+                            <a href="{% url 'catalog:product_update' object.pk %}"
+                                   class="btn btn-md btn-block btn-outline-secondary">Редактировать</a>
+                            <a href="{% url 'catalog:product_delete' object.pk %}"
+                                   class="btn btn-md btn-block btn-outline-secondary">Удалить</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
