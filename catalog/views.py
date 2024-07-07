@@ -5,13 +5,21 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, ProductModeratorForm
-from catalog.models import Product
+from catalog.models import Product, Category
+from catalog.services import det_category_from_cache
 from version.forms import VersionForm
 from version.models import Version
 
 
 class ProductListView(ListView):
     model = Product
+
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_queryset(self):
+        return det_category_from_cache()
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
